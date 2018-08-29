@@ -1,14 +1,28 @@
-const express=require('express')
-const path=require('path')
+//1、导入express
+const express = require('express')
+const path = require('path')
 
-const accountRouter=express.Router()//创建路由
+//2、创建路由对象
+const accountRouter = express.Router()
 
 //导入控制器
-const accountCtrl=require(path.join(__dirname,'../controllers/accountController.js'))
+const accountCTRL = require(path.join(__dirname,"../controllers/accountController.js"))
 
-//获取登陆页面请求
-accountRouter.get('/login',accountCtrl.getLoginPage)
-accountRouter.get('/register',accountCtrl.getRegisterPage)
+//3、处理具体的请求
+// 获取登录页面的请求
+accountRouter.get('/login',accountCTRL.getLoginPage)
 
+// 获取注册页面的请求
+accountRouter.get('/register',accountCTRL.getRegisterPage)
 
-module.exports=accountRouter//导出路由
+// 处理注册请求
+accountRouter.post('/register',accountCTRL.register)
+
+// 获取图片验证码
+accountRouter.get('/vcode',accountCTRL.getVcodeImage)
+
+// 处理登录
+accountRouter.post('/login',accountCTRL.login)
+
+//4、导出
+module.exports = accountRouter
